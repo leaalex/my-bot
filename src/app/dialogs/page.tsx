@@ -26,7 +26,7 @@ export default function FilesList() {
             <ul>
                 {dialogs.map((file) => (
                     <li key={file}>
-                        <a href={`/api/messages/${file}`} target="_blank" rel="noopener noreferrer">
+                        <a href={`/api/dialogs/${file}`} target="_blank" rel="noopener noreferrer">
                             {file}
                         </a>
                     </li>
