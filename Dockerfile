@@ -1,5 +1,5 @@
 # Используйте официальный образ Bun
-FROM jarredsumner/bun:latest
+FROM oven/bun:latest
 
 # Установите рабочую директорию
 WORKDIR /usr/src/app
