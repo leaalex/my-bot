@@ -1,0 +1,22 @@
+import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+const messagesDir = path.join(process.cwd(), 'messages');
+
+export async function GET(req: NextRequest, { params }: { params: { filename: string } }) {
+    const { filename } = params;
+    const filePath = path.join(messagesDir, filename);
+
+    if (fs.existsSync(filePath)) {
+        const fileBuffer = fs.readFileSync(filePath);
+        return new NextResponse(fileBuffer, {
+            headers: {
+                'Content-Type': 'text/plain',
+                'Content-Disposition': `attachment; filename="${filename}"`,
+            },
+        });
+    } else {
+        return NextResponse.json({ error: 'Файл не найден' }, { status: 404 });
+    }
+}

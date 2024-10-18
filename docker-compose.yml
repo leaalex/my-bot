@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3003:3003"  # Привязка порта 3003
+    volumes:
+      - .:/usr/src/app  # Привязка локальной файловой системы
+      - /usr/src/app/node_modules  # Предотвращение конфликта с node_modules
+    environment:
+      - NODE_ENV=development  # Установка режима разработки
+      - BOT_TOKEN=7300064332:AAEwExF-Dz_Fq2IXoiarlj9it3H_WR_xAB4
