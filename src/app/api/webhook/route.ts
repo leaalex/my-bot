@@ -8,6 +8,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN as string);
 
 const messagesDir = path.join(process.cwd(), 'messages');
 const sharedDir = path.join(process.cwd(), 'shared');
+const dialogsDir = path.join(process.cwd(), 'dialogs'); 
 
 // Проверка наличия папок и создание, если их нет
 if (!fs.existsSync(messagesDir)) {
@@ -15,6 +16,10 @@ if (!fs.existsSync(messagesDir)) {
 }
 if (!fs.existsSync(sharedDir)) {
     fs.mkdirSync(sharedDir);
+}
+
+if (!fs.existsSync(dialogsDir)) {
+    fs.mkdirSync(dialogsDir);
 }
 
 
@@ -41,6 +46,9 @@ export async function POST(req: NextRequest) {
 
             // Сохраните сообщение в файл
             fs.writeFileSync(messageFilePath, logMessage);
+
+            const dialogFilePath = path.join(dialogsDir, `dialog_${chatId}.txt`);
+            fs.appendFileSync(dialogFilePath, logMessage);
 
             // Сохраните прикреплённые файлы
             if (body.message.document) {
